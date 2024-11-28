@@ -5,11 +5,7 @@ import useFetch from "./useFetch";
 import useAppContext from "./AppContext";
 
 export default function Form() {
-  const {
-    submittedData,
-    setSubmittedData,
-    setResponse,
-  } = useAppContext();
+  const { submittedData, setSubmittedData, setResponse } = useAppContext();
 
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
@@ -33,11 +29,19 @@ export default function Form() {
     setIsSubmitted(true);
     if (amount && category && difficulty)
       setSubmittedData({ amount, category, difficulty });
+    if (error) {
+      setAmount("");
+      setCategory("");
+      setDifficulty("");
+    }
   }
 
   return (
     <div className="flex items-center justify-center py-10">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-8 bg-zinc-100 rounded-3xl shadow-2xl backdrop:blur-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-5 p-8 bg-zinc-100 rounded-3xl shadow-2xl backdrop:blur-lg"
+      >
         <label htmlFor="category" className="label-style">
           Choose Category
         </label>
@@ -66,8 +70,9 @@ export default function Form() {
               onClick={() => {
                 setDifficulty(level);
               }}
-              className={`rounded-3xl  border-2 border-purple-800 hover:border-purple-700  py-2 px-5 font-semibold capitalize  ${difficulty === level && "text-zinc-100 bg-purple-800"
-                }   `}
+              className={`rounded-3xl  border-2 border-purple-800 hover:border-purple-700  py-2 px-5 font-semibold capitalize  ${
+                difficulty === level && "text-zinc-100 bg-purple-800"
+              }   `}
             >
               {level}
             </button>
@@ -94,7 +99,7 @@ export default function Form() {
           value={isLoading && !error ? "Loading..." : "Submit"}
         />
 
-        {error && <Error value={error} />}
+        {error && <p className="text-red-600 font-semibold">{error}</p>}
       </form>
     </div>
   );

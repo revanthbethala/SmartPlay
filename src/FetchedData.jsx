@@ -13,6 +13,7 @@ export default function FetchedData() {
     };
   });
   const correctAnswers = data.map((corr) => corr.correctAnswer);
+  console.log(correctAnswers);
 
   return (
     <div className="flex items-center justify-center w-full px-7 py-3">

@@ -3,30 +3,15 @@ import { useState } from "react";
 
 const QuizRules = () => {
   const { setIsProceed } = useAppContext();
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleProceed = () => {
-    setIsProceed(true);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !isClicked) {
-      handleProceed();
-    }
-  };
 
   return (
     <>
-      <div
-        className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-6"
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-      >
+      <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-6">
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-          Quiz Instructions
+          Instructions
         </h2>
         <p className="text-lg text-gray-600 text-center mb-6">
-          Welcome to <strong>QUIZ-IO</strong>! Please read the rules below:
+          Welcome to <strong>Smart Play</strong>! Please read the rules below:
         </p>
 
         <div className="space-y-4">
@@ -44,7 +29,8 @@ const QuizRules = () => {
               2. Answer Submission
             </h3>
             <p className="text-gray-600">
-              Click <strong>Next</strong> to submit your answer. If you don't, your answer won’t be counted.
+              Click <strong>Next</strong> to submit your answer. If you don't,
+              your answer won’t be counted.
             </p>
           </div>
 
@@ -86,8 +72,7 @@ const QuizRules = () => {
           <button
             className="bg-purple-600 px-5 py-2 rounded-3xl text-lg text-white hover:bg-purple-800"
             onClick={() => {
-              setIsClicked(true);
-              handleProceed();
+              setIsProceed(true);
             }}
           >
             Proceed

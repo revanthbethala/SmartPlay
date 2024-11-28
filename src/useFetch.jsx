@@ -14,10 +14,14 @@ export default function useFetch(amount, category, difficulty) {
 
         const url = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple`;
         const request = await fetch(url);
-
-        if (!request.ok) throw new Error("Unknown error occurred");
-
         const data = await request.json();
+
+        if (!request.ok) throw new Error("Unknown error occurred!");
+        if (data?.response_code !== 0 || data?.results?.length)
+          throw new Error(
+            "Database doesnt have enough questions! Please try with less questions after 5sec"
+          );
+
         setResponse(data);
       } catch (error) {
         console.log(error.message);
@@ -29,5 +33,4 @@ export default function useFetch(amount, category, difficulty) {
     fetching();
   }, [category, amount, difficulty]);
   return { response, isLoading, error };
-
 }
