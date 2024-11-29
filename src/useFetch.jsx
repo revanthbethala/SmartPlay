@@ -17,10 +17,12 @@ export default function useFetch(amount, category, difficulty) {
         const data = await request.json();
 
         if (!request.ok) throw new Error("Unknown error occurred!");
-        if (data?.response_code !== 0 || data?.results?.length)
+        if (data?.response_code === 1)
           throw new Error(
-            "Database doesnt have enough questions! Please try with less questions after 5sec"
+            "Database doesn't have enough questions! Please try with less questions"
           );
+        if (data?.response_code === 5)
+          throw new Error("Too many requests!Please try after 10sec");
 
         setResponse(data);
       } catch (error) {

@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-
 import { useCallback, useEffect, useState } from "react";
 import useAppContext from "./AppContext";
 import Timer from "./Timer";
+import { decode } from "he"
 const opt = ["a", "b", "c", "d"];
 
 export default function Questions({ size, results }) {
@@ -48,17 +48,16 @@ export default function Questions({ size, results }) {
         <Timer />
       </div>
       <p className="font-semibold text-2xl">Question {count + 1}</p>
-      <p className="font-semibold text-lg">{results.question}</p>
+      <p className="font-semibold text-lg">{decode(results.question)}</p>
 
       <div className="m-3">
         {results.options.map((option, index) => (
           <button
             key={index}
-            className={`rounded-xl m-2 p-3 font-semibold w-full text-start ${
-              option === selectedOption
-                ? "bg-purple-600 text-white shadow-2xl -translate-y-1 duration-100 ease-linear"
-                : "bg-zinc-100 text-black"
-            }
+            className={`rounded-xl m-2 p-3 font-semibold w-full text-start ${option === selectedOption
+              ? "bg-purple-600 text-white shadow-2xl -translate-y-1 duration-100 ease-linear"
+              : "bg-zinc-100 text-black"
+              }
               animate-fadein duration-200 ease-out
             pointer
             `}
@@ -66,7 +65,7 @@ export default function Questions({ size, results }) {
             disabled={selectedOption}
             onClick={handleOptionClick}
           >
-            {opt[index].toUpperCase()} . {option}
+            {decode(opt[index].toUpperCase())} . {option}
           </button>
         ))}
       </div>

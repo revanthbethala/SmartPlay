@@ -22,18 +22,19 @@ export default function Form() {
 
   useEffect(() => {
     setResponse(response);
-  }, [response, setResponse]);
+    if (error) {
+      setAmount("");
+      setCategory("");
+      setDifficulty("");
+    }
+  }, [response, setResponse, error]);
 
   function handleSubmit(event) {
     event.preventDefault();
     setIsSubmitted(true);
     if (amount && category && difficulty)
       setSubmittedData({ amount, category, difficulty });
-    if (error) {
-      setAmount("");
-      setCategory("");
-      setDifficulty("");
-    }
+
   }
 
   return (
@@ -70,9 +71,8 @@ export default function Form() {
               onClick={() => {
                 setDifficulty(level);
               }}
-              className={`rounded-3xl  border-2 border-purple-800 hover:border-purple-700  py-2 px-5 font-semibold capitalize  ${
-                difficulty === level && "text-zinc-100 bg-purple-800"
-              }   `}
+              className={`rounded-3xl  border-2 border-purple-800 hover:border-purple-700  py-2 px-5 font-semibold capitalize  ${difficulty === level && "text-zinc-100 bg-purple-800"
+                }   `}
             >
               {level}
             </button>
